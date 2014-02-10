@@ -1,10 +1,13 @@
 (ns tailrecursion.boot.task.notify
   (:require [tailrecursion.boot.core :refer [set-env! deftask]]
-            [clojure.java.shell      :refer [sh]])
-  (:import  java.io.File))
+            [clojure.java.shell      :refer [sh]]
+            [clojure.java.io         :as    io])
+  (:import  (java.io File FileInputStream)))
 
 (defn play! [file]
-  (-> (.getResourceAsStream (clojure.lang.RT/baseLoader) file)
+  (-> (or (.getResourceAsStream (clojure.lang.RT/baseLoader) file)
+          (FileInputStream. (io/file file))
+          (or (throw (RuntimeException. (str file " not found.")))))
       java.io.BufferedInputStream.
       javazoom.jl.player.Player.
       .play))
