@@ -37,8 +37,8 @@
   announce the warning count.  If neither executable is found, plays a
   generic warning sound."
   [& {:keys [success failure]
-      :or   {success "tailrecursion/boot/task/notify/success.mp3"
-             failure "tailrecursion/boot/task/notify/failure.mp3"}}]
+      :or   {success "tailrecursion/boot/task/notify/pillsbury_laugh.mp3"
+             failure "tailrecursion/boot/task/notify/uh_oh.mp3"}}]
   (fn [continue]
     (fn [event]
       (try
