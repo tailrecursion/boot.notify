@@ -23,7 +23,7 @@ For more info about a task do `boot [help <task>]`.
 ;; build.boot
 (set-env!
   :dependencies
-  '[[tailrecursion.boot.task.notify "2.0.0-SNAPSHOT"]])
+  '[[tailrecursion/boot.notify "2.0.0-SNAPSHOT"]])
 
 (require
  '[tailrecursion.boot.task.notify :refer [hear]])
