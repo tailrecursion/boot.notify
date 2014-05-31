@@ -4,7 +4,7 @@
 
 (set-env!
  :project      'tailrecursion/boot.notify
- :version      "2.0.1"
+ :version      "2.0.2"
  :dependencies '[[tailrecursion/boot.core "2.3.1"]
                  [tailrecursion/boot.task "2.1.3"]
                  [javazoom/jlayer "1.0.1"]]

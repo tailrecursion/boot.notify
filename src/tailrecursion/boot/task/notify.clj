@@ -5,21 +5,23 @@
   (:import  (java.io File FileInputStream)))
 
 (defn play! [file]
-  (-> (or (.getResourceAsStream (clojure.lang.RT/baseLoader) file)
+  (future
+    (-> (or (.getResourceAsStream (clojure.lang.RT/baseLoader) file)
           (FileInputStream. (io/file file))
           (or (throw (RuntimeException. (str file " not found.")))))
       java.io.BufferedInputStream.
       javazoom.jl.player.Player.
-      .play))
+      .play)))
 
 (defn warn! [n]
-  (let [msg (str n "warning" (if (> n 1) "s"))]
-    (cond
-     (.exists (File. "/usr/bin/espeak"))
-     (sh "espeak" "-v+f2" msg)
-     (.exists (File. "/usr/bin/say"))
-     (sh "say" "-v" "Vicki" msg)
-     :else (play! "tailrecursion/boot/task/notify/warning.mp3"))))
+  (future
+    (let [msg (str n "warning" (if (> n 1) "s"))]
+      (cond
+        (.exists (File. "/usr/bin/espeak"))
+        (sh "espeak" "-v+f2" msg)
+        (.exists (File. "/usr/bin/say"))
+        (sh "say" "-v" "Vicki" msg)
+        :else (play! "tailrecursion/boot/task/notify/warning.mp3")))))
 
 (defmacro cljs-warnings
   [warnings & body]
